@@ -1,0 +1,44 @@
+services:
+  nats-server:
+    image: nats:latest
+    ports:
+      - "8222:8222"
+  
+  client-gateway:
+    build: ./client-gateway
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client-gateway/src:/usr/src/app/src
+    command: pnpm start:dev
+    environment:
+      - PORT=3000
+      - NATS_SERVERS=nats://nats-server:4222
+
+  auth-ms:
+    depends_on:
+      - authdb-ms
+      - nats-server
+    build:
+      context: ./auth-ms
+      dockerfile: Dockerfile 
+    volumes:
+      - ./auth-ms/src:/usr/src/app/src
+    command: pnpm start:dev
+    environment:
+      - PORT=3001
+      - NATS_SERVERS=nats://nats-server:4222
+      - DATABASE_URL=postgresql://postgres:postgres@authdb-ms:5432/authdb-ms
+    
+  authdb-ms:
+    image: postgres:latest
+    container_name: authdb-ms
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=authdb-ms
+    volumes:
+      - ./auth-ms/postgres:/var/lib/postgresql/data
+  
