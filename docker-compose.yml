@@ -3,7 +3,7 @@ services:
     image: nats:latest
     ports:
       - "8222:8222"
-  
+
   client-gateway:
     build: ./client-gateway
     ports:
@@ -24,7 +24,7 @@ services:
       - nats-server
     build:
       context: ./auth-ms
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
     volumes:
       - ./auth-ms/src:/usr/src/app/src
     command: pnpm start:dev
@@ -33,7 +33,7 @@ services:
       - NATS_SERVERS=nats://nats-server:4222
       - DATABASE_URL=postgresql://postgres:postgres@authdb-ms:5432/authdb-ms
       - JWT_SECRET=05ac0f5e874b124a0ebbfa80a4e3f7956f5e1dc3beddbcff1135ca9fe0b2dfc02bc6248f33d19c0b8d85903d2306f40c1b5b11955f64a0da75c4d72e94e7595c
-    
+
   authdb-ms:
     image: postgres:latest
     container_name: authdb-ms
@@ -45,4 +45,31 @@ services:
       - POSTGRES_DB=authdb-ms
     volumes:
       - ./auth-ms/postgres:/var/lib/postgresql/data
-  
+
+  media-ms:
+    depends_on:
+      - mediadb-ms
+      - nats-server
+    build:
+      context: ./media-ms
+      dockerfile: Dockerfile
+    volumes:
+      - ./media-ms/src:/usr/src/app/src
+      - ./media-ms/credentials:/usr/src/app/credentials
+    command: pnpm start:dev
+    environment:
+      - PORT=3002
+      - NATS_SERVERS=nats://nats-server:4222
+      - DATABASE_URL=postgresql://postgres:postgres@mediadb-ms:5432/mediadb-ms
+
+  mediadb-ms:
+    image: postgres:latest
+    container_name: mediadb-ms
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=mediadb-ms
+    volumes:
+      - ./media-ms/postgres:/var/lib/postgresql/data
