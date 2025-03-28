@@ -4,3 +4,6 @@
 [submodule "auth-ms"]
 	path = auth-ms
 	url = https://github.com/Uguimar-Platform/auth-ms.git
+[submodule "media-ms"]
+	path = media-ms
+	url = https://github.com/Uguimar-Platform/media-ms.git
