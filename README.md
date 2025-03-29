@@ -123,7 +123,7 @@ $ git clone https://github.com/Uguimar-Platform/launcher.git
 ```
 
 ## Actualizar Submódulos de git
-
+Ubicarse en la carpeta raíz del Launcher.
 ```bash
 $ git submodule update --init --recursive
 ```
