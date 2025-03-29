@@ -130,15 +130,19 @@ $ pnpm i
 
 ## Auth Microservice
 ```bash
-PORT=
-DATABASE_URL=
-NATS_SERVERS=
+PORT=3000
+NATS_SERVERS="nats://localhost:4222"
+SWAGGER_USERNAME=admin
+SWAGGER_PASSWORD=admin
+ENV=local
 ```
 
 ## Client Gateway
 ```bash
-PORT=
-NATS_SERVERS=
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/authdb-ms"
+PORT=3001
+NATS_SERVERS=nats://nats-server:4222
+JWT_SECRET=05ac0f5e874b124a0ebbfa80a4e3f7956f5e1dc3beddbcff1135ca9fe0b2dfc02bc6248f33d19c0b8d85903d2306f40c1b5b11955f64a0da75c4d72e94e7595c
 ```
 
 ## Ejecutar Docker
