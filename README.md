@@ -128,16 +128,24 @@ $ git clone https://github.com/Uguimar-Platform/launcher.git
 $ git submodule update --init --recursive
 ```
 
+## Cambiar de rama
+Cambiar de rama de los submódulos si es necesario.
+Ubicarse en la carpeta raíz de cada microservicio.
+
+```bash
+$ git checkout develop
+```
+
 
 ## Instalar Dependencias
-
+Ubicarse en la carpeta raíz de cada microservicio y ejecutar
 ```bash
 $ pnpm i
 ```
 
-## Crear los archivos de enviorments en Client Gateway y Auth Microservice
+## Crear los archivos .env en Client Gateway y Auth Microservice
 
-## Auth Microservice
+## Client Gateway (API Gateway)
 ```bash
 PORT=3000
 NATS_SERVERS="nats://localhost:4222"
@@ -146,7 +154,7 @@ SWAGGER_PASSWORD=admin
 ENV=local
 ```
 
-## Client Gateway
+## Auth-ms
 ```bash
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/authdb-ms"
 PORT=3001
@@ -155,12 +163,14 @@ JWT_SECRET=05ac0f5e874b124a0ebbfa80a4e3f7956f5e1dc3beddbcff1135ca9fe0b2dfc02bc62
 ```
 
 ## Ejecutar Docker
-
+Solo si es la primera vez que ejecutarás el proyecto.
+Ubicarse en la carpeta raíz de Launcher y ejecutar:
 ```bash
 $ docker compose up
 ```
  
-
+Si NO es la primera vez que ejecutarás el proyecto.
+Ubicarse en la carpeta raíz de Launcher y ejecutar:
 ```bash
 $ docker compose up --build
 ```
@@ -173,7 +183,7 @@ $ pnpx prisma generate
 
 
 ## Ejecutar migraciones de prisma
-
+Ejecutar este comando cuando la aplicación ya ha sido dockerizada.
 ```bash
 $ pnpx prisma migrate dev
 ```
