@@ -5,6 +5,15 @@
 - [NestJS](https://nestjs.com/)
 - [Docker](https://www.docker.com/)
 
+## Extensiones Recomendadas
+- Prisma
+- Prisma UML
+- Database Client
+- Dotenv
+- NestJS File Generator
+- Node.js Modules Intellisense
+- TODO Highlight
+
 ## Instalación de recursos
 <details>
 <summary>Arch Linux</summary>
@@ -130,21 +139,43 @@ $ pnpm i
 
 ## Auth Microservice
 ```bash
-PORT=
 DATABASE_URL=
+PORT=
 NATS_SERVERS=
+JWT_SECRET=
 ```
 
 ## Client Gateway
 ```bash
 PORT=
 NATS_SERVERS=
+SWAGGER_USERNAME=
+SWAGGER_PASSWORD=
+ENV=
 ```
 
 ## Ejecutar Docker
 
 ```bash
 $ docker compose up
+```
+ 
+
+```bash
+$ docker compose up --build
+```
+
+## Ejecutar prisma
+
+```bash
+$ pnpx prisma generate
+```
+
+
+## Ejecutar migraciones de prisma
+
+```bash
+$ pnpx prisma migrate dev
 ```
 
 ## Abrir el Swagger del Microservicio de Autenticación
