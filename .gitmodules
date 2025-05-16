@@ -7,3 +7,6 @@
 [submodule "auth-ms"]
 	path = auth-ms
 	url = https://github.com/Uguimar-Platform/auth-ms.git
+[submodule "notifications-ms"]
+	path = notifications-ms
+	url = https://github.com/Uguimar-Platform/notifications-ms.git
